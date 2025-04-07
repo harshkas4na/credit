@@ -86,13 +86,13 @@ export default function AdminUsersPage() {
       await axios.put(`${API_URL}/admin/users/${editingUser._id}`, editForm)
 
       // Update local state
-      const updatedUsers = users.map((user) => (user._id === editingUser._id ? { ...user, ...editForm } : user))
+      const updatedUsers = users.map((user) => (user._id === editingUser._id ? { ...user, ...editForm, role: editForm.role as User['role'] } : user))
       setUsers(updatedUsers)
       setIsEditDialogOpen(false)
     } catch (error) {
       console.error("Failed to update user:", error)
       // Fallback to just updating UI if API fails
-      const updatedUsers = users.map((user) => (user._id === editingUser._id ? { ...user, ...editForm } : user))
+      const updatedUsers = users.map((user) => (user._id === editingUser._id ? { ...user, ...editForm, role: editForm.role as User['role'] } : user))
       setUsers(updatedUsers)
       setIsEditDialogOpen(false)
     }
